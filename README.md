@@ -1,1 +1,1 @@
-﻿This is Michael Munzings extremely simple todo.
+﻿This is Michael Munzing's extremely basic todo.
