@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" ng-app="ToDo">
+<head>
+  <meta charset="UTF-8">
+  <title>Mike's Todo</title>
+
+  <style>
+    body{
+      margin: auto;
+      width: 25%;
+    }
+
+    .done {
+      text-decoration: line-through;
+      color:black
+    }
+  </style>
+</head>
+
+<body >
+  <h2>Michael's Very Basic Todo</h2>
+  <div ng-controller="todoController">
+    <form name="form" ng-submit="addTodo()">
+      <input type="text" name="newtodo" ng-model="newtodo" required/>
+      <button ng-disabled="form.$invalid">Go</button>
+    </form>
+    <button ng-click="clearCompleted()">Clear Completed</button>
+    <table>
+      <tr ng-repeat="todo in todos">
+        <td><input type="checkbox" ng-model="todo.done"/></td>
+        <td><span ng-class="{'done':todo.done}">{{todo.title}}</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <script src="bower_components/angular/angular.min.js"></script>
+
+  <script>
+    angular.module('ToDo', []).controller('todoController', ['$scope', function($scope){
+      $scope.todos = [
+        {'title':'Build a todo app', 'done':false}
+      ];
+
+      $scope.addTodo = function(){
+        $scope.todos.push({'title':$scope.newtodo, 'done':false})
+        $scope.newtodo=''
+      }
+      $scope.clearCompleted = function(){
+        $scope.todos = $scope.todos.filter(function(item){
+          return !item.done
+        })
+       }
+    }])
+  </script>
+
+</body>
+</html>
